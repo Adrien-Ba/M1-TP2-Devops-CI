@@ -96,7 +96,6 @@ jobs:
         auth: 
           username: adrienba
           password: $MYDOCKERHUB_PASSWORD
-    working_directory: folder
     steps:
       - checkout
       - restore_cache:
