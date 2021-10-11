@@ -27,6 +27,7 @@ jobs:
           username: adrienba
           password: $MYDOCKERHUB_PASSWORD
     steps:
+      - checkout
       - restore_cache:
           keys:
             - npm-v1-dependencies-{{ checksum "yarn.lock" }}
@@ -48,6 +49,7 @@ jobs:
           username: adrienba
           password: $MYDOCKERHUB_PASSWORD
     steps:
+      - checkout
       - restore_cache:
           keys:
             - npm-v1-dependencies-{{ checksum "yarn.lock" }}
