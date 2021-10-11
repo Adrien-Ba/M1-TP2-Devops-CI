@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  yarninstall:
+  build:
     docker:
       - image: cimg/node:lts
         auth: 
@@ -48,6 +48,11 @@ jobs:
 workflows:
   build:
     jobs:
-      - yarninstall
-      - yarnlint
-      - yarntestci
+      - build
+      - yarnlint:
+          requireds:
+            - build
+      - yarntestci:
+          requires:
+            - build
+            - yarnlint
