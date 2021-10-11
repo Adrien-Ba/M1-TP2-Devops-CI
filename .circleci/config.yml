@@ -46,11 +46,11 @@ jobs:
 
 
 workflows:
-  build:
+  build-test-and-deploy:
     jobs:
       - build
       - yarnlint:
-          requireds:
+          requires:
             - build
       - yarntestci:
           requires:
