@@ -108,5 +108,3 @@ workflows:
       - bddtest:
           requires:
             - build
-            - yarnlint
-            - yarntest
