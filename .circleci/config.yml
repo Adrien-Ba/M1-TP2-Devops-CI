@@ -96,7 +96,7 @@ jobs:
         auth: 
           username: adrienba
           password: $MYDOCKERHUB_PASSWORD
-    working_directory: /folder
+    working_directory: folder
     steps:
       - checkout
       - restore_cache:
@@ -105,13 +105,13 @@ jobs:
             - npm-v1-dependencies
       - run: 
           name: "yarn doc:build"
-          command: yarn doc:build > /folder/docs
+          command: yarn doc:build 
       - save_cache:
           key: npm-v1-dependencies-{{ checksum "yarn.lock" }}
           paths:
               - node_modules
       - store_artifacts:
-          path: /folder/docs
+          path: docs
           destination: documentation
       
 
