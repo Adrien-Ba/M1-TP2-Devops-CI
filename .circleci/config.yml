@@ -90,6 +90,26 @@ jobs:
           key: npm-v1-dependencies-{{ checksum "yarn.lock" }}
           paths:
               - node_modules
+  generatedoc:
+    docker:
+      - image: cimg/node:lts
+        auth: 
+          username: adrienba
+          password: $MYDOCKERHUB_PASSWORD
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - npm-v1-dependencies-{{ checksum "yarn.lock" }}
+            - npm-v1-dependencies
+      - run: 
+          name: "yarn doc:build"
+          command: yarn doc:build
+      - save_cache:
+          key: npm-v1-dependencies-{{ checksum "yarn.lock" }}
+          paths:
+              - node_modules
+      
 
 
 
@@ -108,3 +128,9 @@ workflows:
       - bddtest:
           requires:
             - build
+      - generatedoc:
+          requires:
+            - build
+            - yarnlint
+            - yarntest
+            - bddtest
