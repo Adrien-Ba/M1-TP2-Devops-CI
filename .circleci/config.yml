@@ -1,9 +1,12 @@
 version: 2.1
 
 jobs:
-  build:
-    machine:
-      image: ubuntu-2004:202010-01
+  yarninstall:
+    docker:
+      - image: cimg/node:lts
+        auth: 
+          username: adrienba
+          password: $MYDOCKERHUB_PASSWORD
     steps:
       - checkout
       - restore_cache:
@@ -17,6 +20,34 @@ jobs:
           key: npm-v1-dependencies-{{ checksum "yarn.lock" }}
           paths:
               - node_modules
+  yarnlint:
+    docker:
+      - image: cimg/node:lts
+        auth: 
+          username: adrienba
+          password: $MYDOCKERHUB_PASSWORD
+    steps:
+      - run:
+          name: "yarn lint"
+          command: yarn lint
+      - run:
+          name: "yarn format:check"
+          command: yarn format:check
+  yarntestci:
+    docker:
+      - image: cimg/node:lts
+        auth: 
+          username: adrienba
+          password: $MYDOCKERHUB_PASSWORD
+    steps:
+      - run:
+          name: "yarn test:ci"
+          command: yarn test:ci
 
 
-      
+workflows:
+  build:
+    jobs:
+      - yarninstall
+      - yarnlint
+      - yarntestci
