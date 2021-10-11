@@ -68,11 +68,14 @@ jobs:
           username: adrienba
           password: $MYDOCKERHUB_PASSWORD
         environment:
-          DATABASE_URL: postgresql://root@localhost/circle_test
+          DATABASE_URL: postgres://$POSTGRES_USER:$POSTGRES_DB@localhost:5432/psdb
       - image: circleci/postgres:9.6.5-alpine-ram
         auth:
           username: adrienba
           password: $DOCKERHUB_PASSWORD
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
     steps:
       - checkout
       - restore_cache:
