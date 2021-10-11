@@ -123,14 +123,11 @@ workflows:
             - build
       - yarntest:
           requires:
-            - build
             - yarnlint
       - bddtest:
           requires:
             - build
       - generatedoc:
           requires:
-            - build
-            - yarnlint
             - yarntest
             - bddtest
