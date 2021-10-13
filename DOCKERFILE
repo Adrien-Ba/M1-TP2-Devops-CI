@@ -1,6 +1,5 @@
 FROM cimg/node:lts
 
 RUN yarn install
-RUN yarn start
 
-ENTRYPOINT["start"]
+ENTRYPOINT ["yarn","start:prod"]
